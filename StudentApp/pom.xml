@@ -75,6 +75,13 @@
         <artifactId>jakarta.servlet-api</artifactId>
         <scope>provided</scope>
     </dependency>
+    
+    <!-- Spring Boot Mail Dependency -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+</dependency>
+
 	</dependencies>
 
 	<build>

@@ -6,4 +6,6 @@ import com.app2.entity.Student;
 
 public interface studentRepository extends JpaRepository<Student, Long> {
 
+	Student findByEmailAndPassword(String email, String password);
+
 }

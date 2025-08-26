@@ -52,6 +52,13 @@ public class studentService {
 		studentRepo.save(student);
 		
 	}
+
+	public boolean loginByEmail(String email, String password) {
+		// TODO Auto-generated method stub
+		Student student=studentRepo.findByEmailAndPassword(email, password);
+		return student != null;
+		
+	}
 	
 
 }

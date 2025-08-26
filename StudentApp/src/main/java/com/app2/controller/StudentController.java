@@ -1,4 +1,4 @@
-package com.app2.controller;
+ package com.app2.controller;
 
 import java.io.File;
 import java.util.List;
@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app2.entity.Student;
 import com.app2.service.studentService;
+import com.app2.utils.EmailSender;
 
 import ch.qos.logback.core.model.Model;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,10 @@ import jakarta.servlet.http.HttpServletRequest;
 public class StudentController {
 	@Autowired
 	private studentService studentservice;
+	
+	@Autowired
+	private EmailSender emailSender;
+	
 	@RequestMapping("/studentReg")
 	public String studentRegistration() {
 		return "Registration";
@@ -60,10 +65,12 @@ public class StudentController {
 
 	        // Save to DB
 	        String message = studentservice.saveRegistrationData(student);
+	        emailSender.sendEmail("shivanshrastogimzn2002@gmail.com", "email integration", "welcome you are sucessfully registred");
 	        model.addAttribute("msg", message);
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
+	        emailSender.sendEmail("shivanshrastogimzn2002@gmail.com", "email integration", "welcome you are not  sucessfully registred");
 	        model.addAttribute("msg", "Failed to upload files.");
 	    }
 
@@ -99,6 +106,24 @@ public class StudentController {
 	public String updateRegistration(Student student) {
 		studentservice.updateRegistration(student);
 		  return "redirect:/getList";
+	}
+	
+	@RequestMapping("/loginform")
+	public String loginForm() {
+		return "login";
+	}
+	
+	@RequestMapping("/loginStudent")
+	public String loginStudent(@RequestParam() String email, @RequestParam() String password, ModelMap model) {
+		boolean value=studentservice.loginByEmail(email, password);
+		if(value) {
+			model.addAttribute("msg", "Welcome to the home page ");
+			return "home";
+		}
+		else {
+			model.addAttribute("msg","invaild username or password");
+			return "login";
+		}
 	}
 	
 	

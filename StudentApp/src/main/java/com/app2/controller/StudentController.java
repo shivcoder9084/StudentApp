@@ -31,7 +31,7 @@ public class StudentController {
 		return "Registration";
 	}
 	
-//	@RequestMapping("/saveReg")
+//  my name is shivansh rastogi	@RequestMapping("/saveReg")
 //	public String saveRegistrations(@ModelAttribute Student student, ModelMap model ) {
 //		String message=studentservice.saveRegistrationData(student);
 //		model.addAttribute("msg", message);
